@@ -9,23 +9,39 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@Data
-public class Link extends Auditable{
+@Getter
+@Setter
+public class Link extends Auditable {
 
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@NotNull
 	private String title;
+
 	@NotNull
 	private String url;
-	
-	@OneToMany(mappedBy="link")
-	private List<Comment> commets = new ArrayList<>();
+
+	@OneToMany(mappedBy = "link")
+	private List<Comment> comments = new ArrayList<>();
+
+	public Link() {
+
+	}
+
+	public Link(@NotNull String title, @NotNull String url) {
+		super();
+		this.title = title;
+		this.url = url;
+	}
+
+	public void addComment(Comment comment) {
+		comments.add(comment);
+	}
 
 }
